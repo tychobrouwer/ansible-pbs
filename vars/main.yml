@@ -1,0 +1,4 @@
+---
+# vars file for ansible-pbs
+pbs_apt_repo: deb http://download.proxmox.com/debian/pbs bookworm pbs-no-subscription
+pbs_gpg_key: http://download.proxmox.com/debian/proxmox-release-bookworm.gpg

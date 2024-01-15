@@ -1,0 +1,36 @@
+---
+# tasks file for ansible-pbs
+- name: Update APT cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: Install gnupg
+  ansible.builtin.package:
+    name: gnupg
+    state: present
+
+- name: Ensure proxmox signing key is installed
+  ansible.builtin.apt_key:
+    url: "{{ pbs_gpg_key }}"
+    state: present
+
+- name: Ensure proxmox repository is in sources list
+  ansible.builtin.apt_repository:
+    repo: "{{ pbs_apt_repo }}"
+    state: present
+
+- name: Install Proxmox Backup Server
+  ansible.builtin.package:
+    name: proxmox-backup-server
+    state: present
+
+- name: Ensure subscription warning is disabled
+  ansible.builtin.replace:
+    path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+    regexp: "Ext.Msg.show.*?\n.*?title: gettext..No valid subscription..,"
+    replace: >
+      void({
+                                  title: gettext('No valid subscription'),
+  notify: Restart proxmox-backup-proxy
