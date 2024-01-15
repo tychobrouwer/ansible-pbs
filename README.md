@@ -12,7 +12,7 @@ Example Playbook
 ```yaml
     - hosts: servers
       roles:
-         - { role: ansible-pbs }
+         - { role: tychobrouwer.pbs }
 ```
 
 License
