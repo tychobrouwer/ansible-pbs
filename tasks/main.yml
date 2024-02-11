@@ -46,4 +46,6 @@
     owner: root
     group: root
     mode: 0755
-  register: Reinstall proxmox-widget-toolkit
+  notify:
+    - Reinstall proxmox-widget-toolkit
+    - Restart proxmox-backup-proxy
