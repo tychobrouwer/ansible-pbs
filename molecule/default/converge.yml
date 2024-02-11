@@ -8,7 +8,8 @@
     - role: tychobrouwer.lxc_mount
       lxc_mount_is_lxc: true
       lxc_mount_mounts:
-        - { src: /mnt/data2/pbs-dumps, dest: /mnt/pbs-dumps }
+        - src: /mnt/data2/pbs-dumps
+          dest: /mnt/pbs-dumps
       lxc_mount_lxc_id: 108
       lxc_mount_test_mode: true
       lxc_mount_users: [backup]
