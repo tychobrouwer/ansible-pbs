@@ -5,6 +5,10 @@
     name: proxmox-backup-proxy
     state: restarted
 
+- name: Reinstall proxmox-widget-toolkit
+  ansible.builtin.command: apt --reinstall install proxmox-widget-toolkit
+  changed_when: true
+
 - name: Reinstall proxmox widget toolkit
   ansible.builtin.command: apt --reinstall install proxmox-widget-toolkit
   changed_when: true
