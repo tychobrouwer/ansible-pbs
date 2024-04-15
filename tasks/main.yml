@@ -25,10 +25,11 @@
     group: root
     mode: 0644
 
-- name: Ensure enterprise repository is removed
-  ansible.builtin.file:
+- name: Comment enterprise repository
+  ansible.builtin.replace:
     path: /etc/apt/sources.list.d/pbs-enterprise.list
-    state: absent
+    regexp: "^deb"
+    replace: "#deb"
 
 - name: Install Proxmox Backup Server
   ansible.builtin.package:
