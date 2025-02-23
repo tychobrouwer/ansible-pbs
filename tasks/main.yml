@@ -6,12 +6,14 @@
     cache_valid_time: 3600
   when: ansible_os_family == "Debian"
 
-- name: Install gnupg
+- name: Install required packages
   ansible.builtin.package:
-    name: gnupg
+    name:
+      - gnupg
+      - proxmox-backup-server
     state: present
 
-- name: Ensure proxmox signing key is installed
+- name: Ensure Proxmox Backup Server signing key is installed
   ansible.builtin.apt_key:
     url: "{{ pbs_gpg_key }}"
     state: present
@@ -21,11 +23,11 @@
     dest: /etc/apt/sources.list.d/pbs-no-subscription.list
     content: |
       deb http://download.proxmox.com/debian/pbs {{ ansible_distribution_release }} pbs-no-subscription
+    mode: "0644"
     owner: root
     group: root
-    mode: 0644
 
-- name: Comment enterprise repository
+- name: Comment out enterprise repository
   ansible.builtin.replace:
     path: /etc/apt/sources.list.d/pbs-enterprise.list
     regexp: "^deb"
@@ -43,7 +45,7 @@
     dest: /etc/apt/apt.conf.d/no-nag-script
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
   notify:
     - Reinstall proxmox-widget-toolkit
     - Restart proxmox-backup-proxy
