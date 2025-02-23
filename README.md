@@ -10,9 +10,10 @@ Example Playbook
 ----------------
 
 ```yaml
-    - hosts: servers
-      roles:
-         - { role: tychobrouwer.pbs }
+- hosts: servers
+
+  roles:
+    - role: tychobrouwer.pbs
 ```
 
 License
